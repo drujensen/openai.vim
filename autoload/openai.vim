@@ -30,9 +30,7 @@ function! openai#Complete()
 
   " Curl the OpenAI API and pipe the result to jq.
   let openai_api_key = $OPENAI_API_KEY
-  let openai_model = "code-davinci-002"
-  let openai_max_tokens = 100
-  let command = "curl https://api.openai.com/v1/completions -H 'Content-Type: application/json' -H 'Authorization: Bearer " . openai_api_key . "' -d '{\"model\": \"" . openai_model . "\", \"prompt\":\"" . substitute(trim(text), '"', '\\"', "g") . "\", \"max_tokens\": " . openai_max_tokens . "}' "
+  let command = "curl https://api.openai.com/v1/completions -H 'Content-Type: application/json' -H 'Authorization: Bearer " . openai_api_key . "' -d '{\"model\": \"code-davinci-002\", \"prompt\":\"" . substitute(trim(text), '"', '\\"', "g") . "\", \"max_tokens\": 100}' "
   let curl_output = trim(system(command))
   let output = trim(system("echo '" . curl_output . "' | jq --raw-output .choices[0].text"))
 
